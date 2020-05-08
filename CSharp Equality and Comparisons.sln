@@ -37,6 +37,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueTypeEquality", "ValueT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefTypeEquality", "RefTypeEquality\RefTypeEquality.csproj", "{098B90CE-A19A-4640-8F20-A20DE88A0F37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringIntCompare", "StringIntCompare\StringIntCompare.csproj", "{EDCA1D70-AB4E-4D0C-916C-B879DC0B25EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalorieCountCompare", "CalorieCount\CalorieCountCompare.csproj", "{A513ED89-6F3F-466D-B987-CB6C10A5317E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +115,14 @@ Global
 		{098B90CE-A19A-4640-8F20-A20DE88A0F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{098B90CE-A19A-4640-8F20-A20DE88A0F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{098B90CE-A19A-4640-8F20-A20DE88A0F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDCA1D70-AB4E-4D0C-916C-B879DC0B25EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDCA1D70-AB4E-4D0C-916C-B879DC0B25EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDCA1D70-AB4E-4D0C-916C-B879DC0B25EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDCA1D70-AB4E-4D0C-916C-B879DC0B25EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A513ED89-6F3F-466D-B987-CB6C10A5317E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A513ED89-6F3F-466D-B987-CB6C10A5317E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A513ED89-6F3F-466D-B987-CB6C10A5317E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A513ED89-6F3F-466D-B987-CB6C10A5317E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
