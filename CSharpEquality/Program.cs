@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,14 +10,47 @@ namespace CSharpEquality
     {
         static void Main(string[] args)
         {
+            var names = new HashSet<string>(StringComparer.CurrentCultureIgnoreCase);
+            names.Add("apple");
+            names.Add("pear");
+            names.Add("pineapple");
+            names.Add("Apple");
+            foreach (var item in names)
+                Console.WriteLine(item);
+            Console.WriteLine();
+            Console.WriteLine();
+
+            //var foodItems = new HashSet<FoodItem>(EqualityComparer<FoodItem>.Default);
+            var foodItems = new HashSet<FoodItem>(FoodItemEqualityComparer.Instance);
+            //var foodItems = new HashSet<FoodItem>();
+            foodItems.Add(new FoodItem("apple", FoodGroup.Fruit));
+            foodItems.Add(new FoodItem("pear", FoodGroup.Fruit));
+            foodItems.Add(new FoodItem("pineapple", FoodGroup.Fruit));
+            foodItems.Add(new FoodItem("Apple", FoodGroup.Fruit));
+            foreach (var item in foodItems)
+                Console.WriteLine(item);
+
+            Console.WriteLine();
+            Console.WriteLine();
             Food[] list = {
-                new Food("orange", FoodGroup.Fruit),
-                new Food("banana", FoodGroup.Fruit),
+                new Food("apple", FoodGroup.Fruit),
+                new Food("pear", FoodGroup.Fruit),
+                new CookedFood("baked", "apple", FoodGroup.Fruit),
+            };
+            SortAndShowList(list);
+
+            Food[] list2 = {
+                new CookedFood("baked", "apple", FoodGroup.Fruit),
                 new Food("pear", FoodGroup.Fruit),
                 new Food("apple", FoodGroup.Fruit),
             };
+            Console.WriteLine();
+            SortAndShowList(list2);
+        }
 
-            Array.Sort(list, new FoodNameComparer());
+        private static void SortAndShowList(Food[] list)
+        {
+            Array.Sort(list, FoodNameComparer.Instance);
 
             foreach (var item in list)
             {
@@ -25,51 +59,22 @@ namespace CSharpEquality
         }
     }
 
-    public enum FoodGroup { Meat, Fruit, Vegetables, Sweets }
-    public class Food
+    class FoodItemEqualityComparer : EqualityComparer<FoodItem>
     {
-        private readonly string _name;
-        private readonly FoodGroup _group;
-
-        public string Name { get { return _name; } }
-        public FoodGroup Group { get { return _group; } }
-
-        public Food(string name, FoodGroup group)
+        private static FoodItemEqualityComparer _instance = new FoodItemEqualityComparer();
+        public static FoodItemEqualityComparer Instance { get { return _instance; } }
+        private FoodItemEqualityComparer()
         {
-            _name = name;
-            _group = group;
+
+        }
+        public override bool Equals(FoodItem x, FoodItem y)
+        {
+            return x.Name.ToUpperInvariant() == y.Name.ToUpperInvariant() && x.Group == y.Group;
         }
 
-        public override string ToString()
+        public override int GetHashCode(FoodItem obj)
         {
-            return $"{_name} ({_group})";
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-            if (ReferenceEquals(obj, this))
-                return true;
-            if (obj.GetType() != this.GetType())
-                return false;
-            Food rhs = obj as Food;
-            return _name == rhs._name && this._group == rhs._group;
-        }
-
-        public override int GetHashCode()
-        {
-            return _name.GetHashCode() ^ _group.GetHashCode();
-        }
-
-        public static bool operator ==(Food x, Food y)
-        {
-            return object.Equals(x, y);
-        }
-
-        public static bool operator !=(Food x, Food y)
-        {
-            return !object.Equals(x, y);
+            return obj.Name.ToUpperInvariant().GetHashCode() ^ obj.Group.GetHashCode();
         }
     }
 }
