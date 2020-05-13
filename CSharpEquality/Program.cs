@@ -10,6 +10,19 @@ namespace CSharpEquality
     {
         static void Main(string[] args)
         {
+            FoodItem beetroot = new FoodItem("beetroot", FoodGroup.Vegetables);
+            FoodItem pickletdBeetroot = new FoodItem("beetroot", FoodGroup.Sweets);
+            
+            var eqComparer = FoodNameEqualityComparer.Instance;
+            bool equals = eqComparer.Equals(beetroot, pickletdBeetroot);
+
+            Console.WriteLine("Equals? " + equals.ToString());
+            Console.WriteLine(eqComparer.GetHashCode(beetroot));
+            Console.WriteLine(eqComparer.GetHashCode(pickletdBeetroot));
+
+            Console.WriteLine();
+            Console.WriteLine();
+
             var names = new HashSet<string>(StringComparer.CurrentCultureIgnoreCase);
             names.Add("apple");
             names.Add("pear");
@@ -56,25 +69,6 @@ namespace CSharpEquality
             {
                 Console.WriteLine(item);
             }
-        }
-    }
-
-    class FoodItemEqualityComparer : EqualityComparer<FoodItem>
-    {
-        private static FoodItemEqualityComparer _instance = new FoodItemEqualityComparer();
-        public static FoodItemEqualityComparer Instance { get { return _instance; } }
-        private FoodItemEqualityComparer()
-        {
-
-        }
-        public override bool Equals(FoodItem x, FoodItem y)
-        {
-            return x.Name.ToUpperInvariant() == y.Name.ToUpperInvariant() && x.Group == y.Group;
-        }
-
-        public override int GetHashCode(FoodItem obj)
-        {
-            return obj.Name.ToUpperInvariant().GetHashCode() ^ obj.Group.GetHashCode();
         }
     }
 }
