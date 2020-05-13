@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,21 @@ namespace CSharpEquality
     {
         static void Main(string[] args)
         {
+            string[] arr1 = { "apple", "orange", "pineapple" };
+            string[] arr2 = { "apple", "pear", "Pineapple" };
+
+            var arrayEq = (IStructuralEquatable)arr1;
+            bool structEqual = arrayEq.Equals(arr2, StringComparer.OrdinalIgnoreCase);
+            Console.WriteLine(structEqual);
+
+            var arrayComp = (IStructuralComparable)arr1;
+            int structComp = arrayComp.CompareTo(arr2, StringComparer.OrdinalIgnoreCase);
+            Console.WriteLine(structComp);
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+
             FoodItem beetroot = new FoodItem("beetroot", FoodGroup.Vegetables);
             FoodItem pickletdBeetroot = new FoodItem("beetroot", FoodGroup.Sweets);
             
